@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+ * DBeaver - Universal Database Manager
+ * Copyright (C) 2010-2018 Serge Rider (serge@jkiss.org)
+ * Copyright (C) 2017-2018 Alexander Fedorov (alexander.fedorov@jkiss.org)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+  -->
+<plugin>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.jkiss.dbeaver.ext.postgresql.debug.core.pgSQL"
+            icon="platform:/plugin/org.jkiss.dbeaver.ext.postgresql/$nl$/icons/postgresql_icon.png"
+            id="org.jkiss.dbeaver.ext.postgresql.debug.ui.launchConfigurationTypeImages.launchConfigurationTypeImage.pgSQL">
+      </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="org.jkiss.dbeaver.debug.ui.DatabaseTabGroup"
+            description="%launchConfigurationTabGroups.launchConfigurationTabGroup.pgSQL.description"
+            id="org.jkiss.dbeaver.ext.postgresql.debug.ui.launchConfigurationTabGroups.launchConfigurationTabGroup.pgSQL"
+            type="org.jkiss.dbeaver.ext.postgresql.debug.core.pgSQL">
+         <launchMode
+               description="%launchConfigurationTabGroups.launchConfigurationTabGroup.launchMode.pgSQL.debug.description"
+               mode="debug">
+         </launchMode>
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+      <shortcut
+            class="org.jkiss.dbeaver.ext.postgresql.debug.ui.internal.PgSqlGlobalLaunchShortcut"
+            description="%launchShortcuts.shortcut.pgSQL.global.description"
+            icon="platform:/plugin/org.jkiss.dbeaver.ext.postgresql/$nl$/icons/postgresql_icon.png"
+            id="org.jkiss.dbeaver.ext.postgresql.debug.ui.launchShortcuts.shortcut.pgSQL.local"
+            label="%launchShortcuts.shortcut.pgSQL.global.label"
+            modes="debug">
+         <configurationType
+               id="org.jkiss.dbeaver.ext.postgresql.debug.core.pgSQL"></configurationType>
+         <contextualLaunch>
+            <contextLabel
+                  label="%launchShortcuts.shortcut.pgSQL.global.label"
+                  mode="debug">
+            </contextLabel>
+            <enablement>
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.jkiss.dbeaver.model.struct.DBSObject">
+                        <instanceof
+                              value="org.jkiss.dbeaver.ext.postgresql.model.PostgreProcedure">
+                        </instanceof>
+                     </adapt>
+                  </iterate>
+               </with>
+            </enablement>
+         </contextualLaunch>
+      </shortcut>
+      <shortcut
+            class="org.jkiss.dbeaver.ext.postgresql.debug.ui.internal.PgSqlLocalLaunchShortcut"
+            description="%launchShortcuts.shortcut.pgSQL.local.description"
+            icon="platform:/plugin/org.jkiss.dbeaver.ext.postgresql/$nl$/icons/postgresql_icon.png"
+            id="org.jkiss.dbeaver.ext.postgresql.debug.ui.launchShortcuts.shortcut.pgSQL.local"
+            label="%launchShortcuts.shortcut.pgSQL.local.label"
+            modes="debug">
+         <configurationType
+               id="org.jkiss.dbeaver.ext.postgresql.debug.core.pgSQL"></configurationType>
+         <contextualLaunch>
+            <contextLabel
+                  label="%launchShortcuts.shortcut.pgSQL.local.label"
+                  mode="debug">
+            </contextLabel>
+            <enablement>
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.jkiss.dbeaver.model.struct.DBSObject">
+                        <instanceof
+                              value="org.jkiss.dbeaver.ext.postgresql.model.PostgreProcedure">
+                        </instanceof>
+                     </adapt>
+                  </iterate>
+               </with>
+            </enablement>
+         </contextualLaunch>
+      </shortcut>
+   </extension>
+
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.jkiss.dbeaver.ext.postgresql.ui.editors.PostgreSourceViewEditor"
+            class="org.jkiss.dbeaver.debug.ui.actions.DebugActionAdapterFactory">
+         <adapter
+               type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+         </adapter>
+      </factory>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.editorActions">
+      <editorContribution
+            id="org.jkiss.dbeaver.debug.ui.editorContribution"
+            targetID="postgresql.source.view">
+         <action
+               actionID="RulerDoubleClick"
+               class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+               icon="platform:/plugin/org.eclipse.debug.ui/$nl$/icons/full/obj16/brkp_obj.png"
+               id="org.jkiss.dbeaver.debug.ui.actions.ManageBreakpointRulerAction"
+               label="Toggle &amp;Breakpoint"
+               style="push">
+         </action>
+      </editorContribution>
+   </extension>
+
+</plugin>
